@@ -1,0 +1,44 @@
+# TWRP FSTAB for OBOOK R501 (Rockchip RK3566 EINK)
+# Format: <block>  <mount_point>  <fs_type>  <flags>
+
+# System partitions (read-only for recovery)
+/dev/block/by-name/system       /system          ext4    ro,barrier=1
+/dev/block/by-name/vendor       /vendor          ext4    ro,barrier=1
+/dev/block/by-name/odm          /odm             ext4    ro,barrier=1
+/dev/block/by-name/product      /product         ext4    ro,barrier=1
+/dev/block/by-name/system_ext   /system_ext      ext4    ro,barrier=1
+
+# Data partition (f2fs with crypto)
+/dev/block/by-name/userdata     /data            f2fs    noatime,nosuid,nodev,discard,inlinecrypt,reserve_root=32768,resgid=1065    flags=fsflags=reservedsize=128M
+
+# Cache
+/dev/block/by-name/cache        /cache           ext4    noatime,nodiratime,nosuid,nodev,noauto_da_alloc,discard
+
+# Metadata
+/dev/block/by-name/metadata     /metadata        ext4    nodev,noatime,nosuid,discard,sync
+
+# Internal storage (emulated on data)
+/dev/block/by-name/userdata     /sdcard          f2fs    noatime,nosuid,nodev,discard,inlinecrypt,reserve_root=32768,resgid=1065    flags=display="Internal Storage";fsflags=reservedsize=128M
+
+# External SD card
+/dev/block/mmcblk0p1            /external_sd     vfat    defaults        flags=display="MicroSD";removable;storage
+
+# USB OTG
+/devices/platform/*usb*         /usb_otg         vfat    defaults        flags=display="USB OTG";removable;storage
+
+# Misc partitions (for backup/restore)
+/dev/block/by-name/misc         /misc            emmc    defaults        flags=display="Misc"
+/dev/block/by-name/boot         /boot            emmc    defaults        flags=display="Boot";backup=1
+/dev/block/by-name/recovery     /recovery        emmc    defaults        flags=display="Recovery";backup=1
+/dev/block/by-name/resource     /resource        emmc    defaults        flags=display="Resource";backup=1
+/dev/block/by-name/parameter    /parameter       emmc    defaults        flags=display="Parameter";backup=1
+/dev/block/by-name/uboot        /uboot           emmc    defaults        flags=display="Uboot";backup=1
+/dev/block/by-name/trust        /trust           emmc    defaults        flags=display="Trust";backup=1
+/dev/block/by-name/vbmeta       /vbmeta          emmc    defaults        flags=display="VBMeta";backup=1
+/dev/block/by-name/dtbo         /dtbo            emmc    defaults        flags=display="DTBO";backup=1
+/dev/block/by-name/logo         /logo            emmc    defaults        flags=display="Logo";backup=1
+/dev/block/by-name/vendor_boot  /vendor_boot     emmc    defaults        flags=display="Vendor Boot";backup=1
+/dev/block/by-name/frp          /frp             emmc    defaults        flags=display="FRP"
+/dev/block/by-name/cust         /cust            ext4    defaults        flags=display="Cust";backup=1
+/dev/block/by-name/custom       /custom          ext4    defaults        flags=display="Custom";backup=1
+/dev/block/by-name/baseparamer  /baseparamer     emmc    defaults        flags=display="Baseparameter";backup=1
